@@ -1,3 +1,4 @@
+import FounderCard from "./FounderCard";
 import Reveal from "./Reveal";
 
 export function AboutSection() {
@@ -68,6 +69,15 @@ export function AboutSection() {
             </div>
           </Reveal>
         </div>
+
+        {/* Founder card */}
+        <Reveal delay={1} className="mt-20">
+          <FounderCard
+            name="Sarayuth"
+            title="Founder & CEO, BKKNEX"
+            quote="We will harness Thai technology to elevate the productivity and quality of Thailand — sustainably."
+          />
+        </Reveal>
       </div>
     </section>
   );
