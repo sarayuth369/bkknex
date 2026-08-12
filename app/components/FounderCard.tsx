@@ -2,16 +2,21 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import PrivateName from "./PrivateName";
 
 type Props = {
-  name: string;
+  /** Base64-encoded name. Never rendered as text in the HTML source. */
+  nameEncoded: string;
+  /** Initials for the fallback avatar (safe to expose in HTML). */
+  initials: string;
   title: string;
   quote: string;
   imageSrc?: string;
 };
 
 export function FounderCard({
-  name,
+  nameEncoded,
+  initials,
   title,
   quote,
   imageSrc = "/founder.png",
@@ -51,7 +56,7 @@ export function FounderCard({
           {!imgFailed ? (
             <Image
               src={imageSrc}
-              alt={`${name}, ${title}`}
+              alt="Founder portrait"
               fill
               priority
               sizes="(min-width: 1024px) 480px, 100vw"
@@ -62,11 +67,7 @@ export function FounderCard({
             <div className="absolute inset-0 flex items-center justify-center text-[color:var(--muted-2)]">
               <div className="text-center">
                 <div className="mx-auto flex h-24 w-24 items-center justify-center rounded-full border border-[color:var(--border-strong)] bg-[rgba(11,17,32,0.6)] font-display text-3xl text-white">
-                  {name
-                    .split(" ")
-                    .map((s) => s[0])
-                    .slice(0, 2)
-                    .join("")}
+                  {initials}
                 </div>
                 <div className="mt-4 font-mono text-[10px] uppercase tracking-[0.24em]">
                   Portrait
@@ -138,7 +139,14 @@ export function FounderCard({
           </div>
 
           <div className="mt-10 border-t border-[color:var(--border)] pt-6">
-            <div className="font-display text-lg text-white">{name}</div>
+            <PrivateName
+              encoded={nameEncoded}
+              height={20}
+              weight={600}
+              color="#ffffff"
+              ariaLabel="Founder"
+              className="block"
+            />
             <div className="mt-1 text-sm text-[color:var(--muted)]">{title}</div>
             <div className="mt-4 flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.24em] text-[color:var(--muted-2)]">
               <span className="h-1.5 w-1.5 rounded-full bg-[color:var(--brand-2)] pulse-soft" />

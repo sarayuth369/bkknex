@@ -73,7 +73,8 @@ export function AboutSection() {
         {/* Founder card */}
         <Reveal delay={1} className="mt-20">
           <FounderCard
-            name="Sarayuth"
+            nameEncoded="U2FyYXl1dGg="
+            initials="S"
             title="Founder & CEO, BKKNEX"
             quote="We will harness Thai technology to elevate the productivity and quality of Thailand — sustainably."
           />
