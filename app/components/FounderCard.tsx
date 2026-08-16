@@ -3,29 +3,24 @@
 import Image from "next/image";
 import { useState } from "react";
 import PrivateName from "./PrivateName";
+import { useLang } from "./LanguageProvider";
 
 type Props = {
-  /** Base64-encoded name. Never rendered as text in the HTML source. */
   nameEncoded: string;
-  /** Initials for the fallback avatar (safe to expose in HTML). */
   initials: string;
-  title: string;
-  quote: string;
   imageSrc?: string;
 };
 
 export function FounderCard({
   nameEncoded,
   initials,
-  title,
-  quote,
   imageSrc = "/founder.png",
 }: Props) {
+  const { t } = useLang();
   const [imgFailed, setImgFailed] = useState(false);
 
   return (
     <div className="group relative rounded-3xl panel panel-glow overflow-hidden">
-      {/* ambient background */}
       <div
         aria-hidden
         className="absolute inset-0 -z-10"
@@ -36,14 +31,8 @@ export function FounderCard({
       />
 
       <div className="grid sm:grid-cols-5 gap-0">
-        {/* Portrait */}
         <div className="relative sm:col-span-3 aspect-[4/5] sm:aspect-auto sm:min-h-[520px] overflow-hidden">
-          {/* soft grid backdrop */}
-          <div
-            aria-hidden
-            className="absolute inset-0 bg-grid opacity-30"
-          />
-          {/* light halo behind portrait */}
+          <div aria-hidden className="absolute inset-0 bg-grid opacity-30" />
           <div
             aria-hidden
             className="absolute inset-0"
@@ -76,7 +65,6 @@ export function FounderCard({
             </div>
           )}
 
-          {/* edge fades so white bg dissolves into card */}
           <div
             aria-hidden
             className="pointer-events-none absolute inset-0"
@@ -94,13 +82,11 @@ export function FounderCard({
             }}
           />
 
-          {/* scanline accent */}
           <div
             aria-hidden
             className="pointer-events-none absolute left-6 right-6 bottom-6 h-px shimmer"
           />
 
-          {/* corner markers */}
           {["top-4 left-4", "top-4 right-4", "bottom-4 left-4", "bottom-4 right-4"].map(
             (pos) => (
               <span
@@ -119,11 +105,10 @@ export function FounderCard({
           )}
         </div>
 
-        {/* Quote + identity */}
         <div className="sm:col-span-2 p-8 sm:p-10 flex flex-col justify-between">
           <div>
             <div className="font-mono text-[10px] uppercase tracking-[0.28em] text-[color:var(--brand-2)]">
-              / Founder&apos;s Note
+              {t.founder.eyebrow}
             </div>
             <svg
               aria-hidden
@@ -134,7 +119,7 @@ export function FounderCard({
               <path d="M9 8c-3 0-5 2-5 5v6c0 2 1 4 4 4h3v-8H7c0-2 1-3 3-3V8H9zm14 0c-3 0-5 2-5 5v6c0 2 1 4 4 4h3v-8h-4c0-2 1-3 3-3V8h-1z" />
             </svg>
             <blockquote className="mt-4 font-display text-xl sm:text-2xl leading-snug tracking-tight text-white">
-              &ldquo;{quote}&rdquo;
+              &ldquo;{t.founder.quote}&rdquo;
             </blockquote>
           </div>
 
@@ -147,10 +132,12 @@ export function FounderCard({
               ariaLabel="Founder"
               className="block"
             />
-            <div className="mt-1 text-sm text-[color:var(--muted)]">{title}</div>
+            <div className="mt-1 text-sm text-[color:var(--muted)]">
+              {t.founder.title}
+            </div>
             <div className="mt-4 flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.24em] text-[color:var(--muted-2)]">
               <span className="h-1.5 w-1.5 rounded-full bg-[color:var(--brand-2)] pulse-soft" />
-              BKKNEX · Bangkok
+              {t.founder.location}
             </div>
           </div>
         </div>

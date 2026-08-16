@@ -1,12 +1,15 @@
+"use client";
+
 import ParticleField from "./ParticleField";
+import { useLang } from "./LanguageProvider";
 
 export function Hero() {
+  const { t } = useLang();
   return (
     <section
       id="top"
       className="relative isolate min-h-[100svh] flex items-center overflow-hidden"
     >
-      {/* Background layers */}
       <div
         aria-hidden
         className="absolute inset-0 -z-10"
@@ -20,7 +23,6 @@ export function Hero() {
         <ParticleField />
       </div>
 
-      {/* Orbital rings */}
       <div
         aria-hidden
         className="pointer-events-none absolute left-1/2 top-1/2 -z-10 -translate-x-1/2 -translate-y-1/2"
@@ -37,21 +39,20 @@ export function Hero() {
         <div className="max-w-4xl">
           <div className="inline-flex items-center gap-2 rounded-full border border-[color:var(--border)] bg-[rgba(11,17,32,0.6)] px-3 py-1 text-xs font-mono uppercase tracking-[0.18em] text-[color:var(--muted)]">
             <span className="inline-block h-1.5 w-1.5 rounded-full bg-[color:var(--brand-2)] pulse-soft" />
-            BKKNEX · Bangkok, Thailand
+            {t.hero.badge}
           </div>
 
-          <h1 className="font-display mt-6 text-[clamp(2.6rem,7.2vw,6.25rem)] leading-[0.98] tracking-[-0.02em] font-semibold">
-            <span className="text-gradient">Building What</span>
+          <h1 className="font-display mt-6 text-[clamp(2.4rem,6.8vw,6rem)] leading-[1.02] tracking-[-0.02em] font-semibold">
+            <span className="text-gradient">{t.hero.title1}</span>
             <br />
-            <span className="text-gradient">Comes Next.</span>
+            <span className="text-gradient">{t.hero.title2}</span>
           </h1>
 
           <p className="mt-6 max-w-2xl text-lg sm:text-xl text-white/85">
-            Next-generation technology from Bangkok.
+            {t.hero.subtitle}
           </p>
           <p className="mt-4 max-w-2xl text-base sm:text-lg text-[color:var(--muted)]">
-            We build intelligent technologies that connect the physical world,
-            expand human capability, and shape the future.
+            {t.hero.description}
           </p>
 
           <div className="mt-10 flex flex-wrap items-center gap-4">
@@ -59,7 +60,7 @@ export function Hero() {
               href="#solutions"
               className="group relative inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-black transition-all hover:shadow-[0_0_40px_-6px_rgba(255,255,255,0.6)]"
             >
-              Explore Solutions
+              {t.hero.ctaExplore}
               <span
                 aria-hidden
                 className="transition-transform group-hover:translate-y-0.5"
@@ -71,7 +72,7 @@ export function Hero() {
               href="#about"
               className="group inline-flex items-center gap-2 rounded-full border border-[color:var(--border-strong)] bg-[rgba(11,17,32,0.5)] px-6 py-3 text-sm font-semibold text-white transition-all hover:border-[color:var(--brand-2)]"
             >
-              Discover BKKNEX
+              {t.hero.ctaDiscover}
               <span
                 aria-hidden
                 className="transition-transform group-hover:translate-x-0.5"
@@ -81,7 +82,6 @@ export function Hero() {
             </a>
           </div>
 
-          {/* Stat / marker row */}
           <div className="mt-16 grid grid-cols-2 gap-6 sm:grid-cols-4 max-w-3xl">
             {[
               { k: "01", v: "IoT" },
@@ -103,14 +103,13 @@ export function Hero() {
         </div>
       </div>
 
-      {/* Scroll indicator */}
       <a
         href="#solutions"
-        aria-label="Scroll to solutions"
+        aria-label={t.hero.scroll}
         className="absolute left-1/2 bottom-6 -translate-x-1/2 hidden sm:flex flex-col items-center gap-2 text-[color:var(--muted)]"
       >
         <span className="text-[10px] font-mono uppercase tracking-[0.3em]">
-          Scroll
+          {t.hero.scroll}
         </span>
         <span className="relative block h-8 w-[1px] bg-[color:var(--border-strong)] overflow-hidden">
           <span className="absolute left-0 right-0 h-3 bg-[color:var(--brand-2)] flow-line" />

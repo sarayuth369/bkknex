@@ -1,7 +1,12 @@
+"use client";
+
 import FounderCard from "./FounderCard";
 import Reveal from "./Reveal";
+import { useLang } from "./LanguageProvider";
 
 export function AboutSection() {
+  const { t } = useLang();
+
   return (
     <section
       id="about"
@@ -20,64 +25,53 @@ export function AboutSection() {
         <div className="grid lg:grid-cols-12 gap-12 items-start">
           <Reveal className="lg:col-span-5">
             <span className="font-mono text-xs uppercase tracking-[0.28em] text-[color:var(--brand-2)]">
-              / About BKKNEX
+              {t.about.eyebrow}
             </span>
             <h2 className="font-display mt-4 text-4xl sm:text-5xl font-semibold tracking-tight text-white">
-              Building What
+              {t.about.title1}
               <br />
-              <span className="text-gradient">Comes Next.</span>
+              <span className="text-gradient">{t.about.title2}</span>
             </h2>
           </Reveal>
 
           <Reveal delay={2} className="lg:col-span-7">
             <div className="space-y-6 text-lg text-white/85 leading-relaxed">
-              <p>
-                BKKNEX is a technology company focused on building what comes
-                next.
-              </p>
-              <p className="text-[color:var(--muted)] text-base">
-                We develop and explore technologies across connected systems,
-                intelligent software, automation and emerging technology
-                platforms.
-              </p>
-              <p className="text-[color:var(--muted)] text-base">
-                Starting from Bangkok, our vision is to build technology with
-                the potential to reach beyond borders — and eventually beyond
-                Earth.
-              </p>
+              <p>{t.about.p1}</p>
+              <p className="text-[color:var(--muted)] text-base">{t.about.p2}</p>
+              <p className="text-[color:var(--muted)] text-base">{t.about.p3}</p>
             </div>
 
             <div className="mt-10 grid grid-cols-2 sm:grid-cols-3 gap-4 max-w-lg">
               <div className="rounded-xl border border-[color:var(--border)] bg-[rgba(11,17,32,0.5)] p-4">
                 <div className="font-mono text-[10px] uppercase tracking-[0.24em] text-[color:var(--muted-2)]">
-                  Origin
+                  {t.about.labels.origin}
                 </div>
-                <div className="mt-2 text-white font-medium">Bangkok, TH</div>
+                <div className="mt-2 text-white font-medium">
+                  {t.about.values.origin}
+                </div>
               </div>
               <div className="rounded-xl border border-[color:var(--border)] bg-[rgba(11,17,32,0.5)] p-4">
                 <div className="font-mono text-[10px] uppercase tracking-[0.24em] text-[color:var(--muted-2)]">
-                  Focus
+                  {t.about.labels.focus}
                 </div>
-                <div className="mt-2 text-white font-medium">Deep Tech</div>
+                <div className="mt-2 text-white font-medium">
+                  {t.about.values.focus}
+                </div>
               </div>
               <div className="rounded-xl border border-[color:var(--border)] bg-[rgba(11,17,32,0.5)] p-4">
                 <div className="font-mono text-[10px] uppercase tracking-[0.24em] text-[color:var(--muted-2)]">
-                  Horizon
+                  {t.about.labels.horizon}
                 </div>
-                <div className="mt-2 text-white font-medium">Beyond Earth</div>
+                <div className="mt-2 text-white font-medium">
+                  {t.about.values.horizon}
+                </div>
               </div>
             </div>
           </Reveal>
         </div>
 
-        {/* Founder card */}
         <Reveal delay={1} className="mt-20">
-          <FounderCard
-            nameEncoded="U2FyYXl1dGg="
-            initials="S"
-            title="Founder & CEO, BKKNEX"
-            quote="We will harness Thai technology to elevate the productivity and quality of Thailand — sustainably."
-          />
+          <FounderCard nameEncoded="U2FyYXl1dGg=" initials="S" />
         </Reveal>
       </div>
     </section>

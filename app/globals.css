@@ -41,12 +41,29 @@ body {
 }
 
 body {
-  font-family: var(--font-sans), ui-sans-serif, system-ui, -apple-system,
-    "Segoe UI", Roboto, sans-serif;
+  font-family: var(--font-sans), var(--font-noto-thai), ui-sans-serif,
+    system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   overflow-x: hidden;
+}
+
+/* Thai copy needs slightly looser leading for stacked marks */
+html[lang="th"] body {
+  font-family: var(--font-noto-thai), var(--font-sans), ui-sans-serif,
+    system-ui, sans-serif;
+  line-height: 1.6;
+}
+html[lang="th"] .font-display {
+  font-family: var(--font-noto-thai), var(--font-display), ui-sans-serif,
+    sans-serif !important;
+  letter-spacing: -0.01em;
+}
+html[lang="th"] h1,
+html[lang="th"] h2,
+html[lang="th"] h3 {
+  line-height: 1.15;
 }
 
 ::selection {

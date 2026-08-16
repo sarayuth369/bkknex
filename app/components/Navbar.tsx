@@ -3,17 +3,20 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import Logo from "./Logo";
-
-const NAV_LINKS = [
-  { href: "#solutions", label: "Solutions" },
-  { href: "#technology", label: "Technology" },
-  { href: "#vision", label: "Vision" },
-  { href: "#about", label: "About" },
-];
+import LanguageSwitcher from "./LanguageSwitcher";
+import { useLang } from "./LanguageProvider";
 
 export function Navbar() {
+  const { t } = useLang();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+
+  const NAV_LINKS = [
+    { href: "#solutions", label: t.nav.solutions },
+    { href: "#technology", label: t.nav.technology },
+    { href: "#vision", label: t.nav.vision },
+    { href: "#about", label: t.nav.about },
+  ];
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -41,11 +44,11 @@ export function Navbar() {
           : "bg-transparent"
       }`}
     >
-      <div className="mx-auto max-w-7xl px-5 sm:px-8 h-16 sm:h-20 flex items-center justify-between">
+      <div className="mx-auto max-w-7xl px-5 sm:px-8 h-16 sm:h-20 flex items-center justify-between gap-4">
         <Link
           href="#top"
-          aria-label="BKKNEX home"
-          className="flex items-center gap-3"
+          aria-label={t.nav.home}
+          className="flex items-center gap-3 shrink-0"
         >
           <Logo height={36} width={130} priority />
         </Link>
@@ -63,13 +66,14 @@ export function Navbar() {
         </nav>
 
         <div className="hidden lg:flex items-center gap-3">
+          <LanguageSwitcher />
           <a
             href="https://smfiot.bkknex.com"
             target="_blank"
             rel="noopener noreferrer"
             className="group inline-flex items-center gap-2 rounded-full border border-[color:var(--border-strong)] bg-[linear-gradient(180deg,rgba(61,139,255,0.14),rgba(18,216,255,0.06))] px-5 py-2 text-sm font-medium text-white transition-all hover:border-[color:var(--brand-2)] hover:shadow-[0_0_28px_-8px_var(--brand-glow)]"
           >
-            Explore SMF IoT
+            {t.nav.exploreSmfCta}
             <span
               aria-hidden
               className="transition-transform group-hover:translate-x-0.5"
@@ -79,52 +83,57 @@ export function Navbar() {
           </a>
         </div>
 
-        <button
-          type="button"
-          aria-label={open ? "Close menu" : "Open menu"}
-          aria-expanded={open}
-          onClick={() => setOpen((v) => !v)}
-          className="lg:hidden inline-flex h-10 w-10 items-center justify-center rounded-md border border-[color:var(--border)] text-white"
-        >
-          <span className="sr-only">Toggle menu</span>
-          <svg
-            width="20"
-            height="20"
-            viewBox="0 0 20 20"
-            fill="none"
-            aria-hidden
+        <div className="lg:hidden flex items-center gap-2">
+          <LanguageSwitcher />
+          <button
+            type="button"
+            aria-label={open ? t.nav.closeMenu : t.nav.openMenu}
+            aria-expanded={open}
+            onClick={() => setOpen((v) => !v)}
+            className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-[color:var(--border)] text-white"
           >
-            {open ? (
-              <path
-                d="M5 5l10 10M15 5L5 15"
-                stroke="currentColor"
-                strokeWidth="1.6"
-                strokeLinecap="round"
-              />
-            ) : (
-              <>
+            <span className="sr-only">
+              {open ? t.nav.closeMenu : t.nav.openMenu}
+            </span>
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none"
+              aria-hidden
+            >
+              {open ? (
                 <path
-                  d="M3 6h14"
+                  d="M5 5l10 10M15 5L5 15"
                   stroke="currentColor"
                   strokeWidth="1.6"
                   strokeLinecap="round"
                 />
-                <path
-                  d="M3 10h14"
-                  stroke="currentColor"
-                  strokeWidth="1.6"
-                  strokeLinecap="round"
-                />
-                <path
-                  d="M3 14h14"
-                  stroke="currentColor"
-                  strokeWidth="1.6"
-                  strokeLinecap="round"
-                />
-              </>
-            )}
-          </svg>
-        </button>
+              ) : (
+                <>
+                  <path
+                    d="M3 6h14"
+                    stroke="currentColor"
+                    strokeWidth="1.6"
+                    strokeLinecap="round"
+                  />
+                  <path
+                    d="M3 10h14"
+                    stroke="currentColor"
+                    strokeWidth="1.6"
+                    strokeLinecap="round"
+                  />
+                  <path
+                    d="M3 14h14"
+                    stroke="currentColor"
+                    strokeWidth="1.6"
+                    strokeLinecap="round"
+                  />
+                </>
+              )}
+            </svg>
+          </button>
+        </div>
       </div>
 
       {/* Mobile menu */}
@@ -148,15 +157,18 @@ export function Navbar() {
               </a>
             ))}
           </nav>
-          <a
-            href="https://smfiot.bkknex.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={() => setOpen(false)}
-            className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full border border-[color:var(--border-strong)] bg-[linear-gradient(180deg,rgba(61,139,255,0.18),rgba(18,216,255,0.08))] px-5 py-3 text-sm font-medium text-white"
-          >
-            Explore SMF IoT →
-          </a>
+          <div className="mt-4 flex items-center justify-between">
+            <LanguageSwitcher size="md" />
+            <a
+              href="https://smfiot.bkknex.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setOpen(false)}
+              className="inline-flex items-center justify-center gap-2 rounded-full border border-[color:var(--border-strong)] bg-[linear-gradient(180deg,rgba(61,139,255,0.18),rgba(18,216,255,0.08))] px-4 py-2 text-sm font-medium text-white"
+            >
+              {t.nav.exploreSmfCta} →
+            </a>
+          </div>
         </div>
       </div>
     </header>

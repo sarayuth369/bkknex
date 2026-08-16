@@ -1,6 +1,10 @@
+"use client";
+
 import Logo from "./Logo";
+import { useLang } from "./LanguageProvider";
 
 export function Footer() {
+  const { t } = useLang();
   return (
     <footer className="relative border-t border-[color:var(--border)] bg-[color:var(--background-2)]">
       <div className="mx-auto max-w-7xl px-5 sm:px-8 py-16 sm:py-20">
@@ -8,16 +12,16 @@ export function Footer() {
           <div className="md:col-span-4">
             <Logo height={40} width={140} />
             <p className="mt-4 text-white/90 font-display text-lg">
-              Building What Comes Next.
+              {t.footer.tagline}
             </p>
             <p className="mt-2 text-sm text-[color:var(--muted)]">
-              Next-generation technology from Bangkok, Thailand.
+              {t.footer.location}
             </p>
           </div>
 
           <div className="md:col-span-2">
             <div className="font-mono text-[10px] uppercase tracking-[0.28em] text-[color:var(--muted-2)]">
-              Solutions
+              {t.footer.solutions}
             </div>
             <ul className="mt-4 space-y-3 text-sm">
               <li>
@@ -33,40 +37,39 @@ export function Footer() {
                   </span>
                 </a>
               </li>
-              <li className="text-[color:var(--muted)]">Space — Coming Soon</li>
-              <li className="text-[color:var(--muted)]">AI — Coming Soon</li>
+              <li className="text-[color:var(--muted)]">
+                {t.footer.space} — {t.footer.comingSoon}
+              </li>
+              <li className="text-[color:var(--muted)]">
+                {t.footer.ai} — {t.footer.comingSoon}
+              </li>
             </ul>
           </div>
 
           <div className="md:col-span-3">
             <div className="font-mono text-[10px] uppercase tracking-[0.28em] text-[color:var(--muted-2)]">
-              Technology
+              {t.footer.technology}
             </div>
             <ul className="mt-4 space-y-3 text-sm text-white/85">
-              <li>IoT</li>
-              <li>AI</li>
-              <li>Automation</li>
-              <li>Data</li>
-              <li>Space Technology</li>
+              {t.footer.techList.map((tech) => (
+                <li key={tech}>{tech}</li>
+              ))}
             </ul>
           </div>
 
           <div className="md:col-span-3">
             <div className="font-mono text-[10px] uppercase tracking-[0.28em] text-[color:var(--muted-2)]">
-              Corporate
+              {t.footer.corporate}
             </div>
             <ul className="mt-4 space-y-3 text-sm">
               <li>
                 <a href="#about" className="text-white/85 hover:text-white">
-                  About
+                  {t.footer.about}
                 </a>
               </li>
               <li>
-                <a
-                  href="#solutions"
-                  className="text-white/85 hover:text-white"
-                >
-                  Contact
+                <a href="#solutions" className="text-white/85 hover:text-white">
+                  {t.footer.contact}
                 </a>
               </li>
             </ul>
@@ -75,10 +78,10 @@ export function Footer() {
 
         <div className="mt-16 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-t border-[color:var(--border)] pt-8">
           <div className="text-xs font-mono text-[color:var(--muted-2)]">
-            © 2026 BKKNEX. All rights reserved.
+            {t.footer.copyright}
           </div>
           <div className="text-xs font-mono text-[color:var(--muted-2)]">
-            Bangkok, Thailand · 13.7563° N, 100.5018° E
+            13.7563° N, 100.5018° E
           </div>
         </div>
       </div>

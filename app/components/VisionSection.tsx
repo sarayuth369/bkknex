@@ -1,15 +1,12 @@
+"use client";
+
+import { useLang } from "./LanguageProvider";
 import Reveal from "./Reveal";
 
-const FLOW = [
-  { label: "Physical World", note: "The world as it is" },
-  { label: "IoT", note: "Sensors · Connectivity" },
-  { label: "Data", note: "Signals become insight" },
-  { label: "AI", note: "Models · Reasoning" },
-  { label: "Intelligence", note: "Systems that decide" },
-  { label: "Next World", note: "Extended possibility" },
-];
-
 export function VisionSection() {
+  const { t } = useLang();
+  const FLOW = t.vision.steps;
+
   return (
     <section
       id="vision"
@@ -32,27 +29,23 @@ export function VisionSection() {
         <Reveal>
           <div className="max-w-3xl mx-auto text-center">
             <span className="font-mono text-xs uppercase tracking-[0.28em] text-[color:var(--brand-2)]">
-              / The BKKNEX Vision
+              {t.vision.eyebrow}
             </span>
             <h2 className="font-display mt-4 text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight">
-              <span className="text-gradient">From Earth to Beyond.</span>
+              <span className="text-gradient">{t.vision.title}</span>
             </h2>
             <p className="mt-6 text-lg text-[color:var(--muted)]">
-              BKKNEX explores the intersection of connected systems, intelligent
-              software and emerging technologies — building solutions that move
-              technology forward.
+              {t.vision.description}
             </p>
           </div>
         </Reveal>
 
         <div className="mt-20 mx-auto max-w-3xl">
           <ol className="relative flex flex-col">
-            {/* vertical spine */}
             <div
               aria-hidden
               className="absolute left-1/2 top-2 bottom-2 w-px -translate-x-1/2 bg-[linear-gradient(180deg,transparent_0%,rgba(61,139,255,0.6)_20%,rgba(18,216,255,0.6)_80%,transparent_100%)]"
             />
-            {/* flowing pulse */}
             <div
               aria-hidden
               className="pointer-events-none absolute left-1/2 top-2 bottom-2 w-px -translate-x-1/2 overflow-hidden"
@@ -62,7 +55,7 @@ export function VisionSection() {
 
             {FLOW.map((step, i) => (
               <Reveal
-                key={step.label}
+                key={`${step.label}-${i}`}
                 as="li"
                 delay={((i % 4) + 1) as 1 | 2 | 3 | 4}
                 className="relative flex items-center gap-6 py-5 sm:py-6"

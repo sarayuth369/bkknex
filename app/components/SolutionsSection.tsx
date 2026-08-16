@@ -1,18 +1,7 @@
+"use client";
+
+import { useLang } from "./LanguageProvider";
 import Reveal from "./Reveal";
-
-type Status = "active" | "coming-soon";
-
-type Solution = {
-  id: string;
-  title: string;
-  subtitle: string;
-  description: string;
-  status: Status;
-  href?: string;
-  cta?: string;
-  emphasized?: boolean;
-  icon: React.ReactNode;
-};
 
 const IconIoT = (
   <svg viewBox="0 0 48 48" fill="none" aria-hidden className="h-8 w-8">
@@ -90,55 +79,56 @@ const IconAI = (
   </svg>
 );
 
-const SOLUTIONS: Solution[] = [
-  {
-    id: "smf-iot",
-    title: "SMF IoT",
-    subtitle: "Smart Farm Intelligence",
-    description:
-      "Intelligent farming powered by IoT, sensors, automation and real-time data.",
-    status: "active",
-    href: "https://smfiot.bkknex.com",
-    cta: "Explore SMF IoT",
-    emphasized: true,
-    icon: IconIoT,
-  },
-  {
-    id: "space",
-    title: "SPACE",
-    subtitle: "Technology Beyond Earth",
-    description: "Exploring technology beyond Earth.",
-    status: "coming-soon",
-    icon: IconSpace,
-  },
-  {
-    id: "ai",
-    title: "AI",
-    subtitle: "Intelligent Systems",
-    description: "Intelligent systems for a smarter future.",
-    status: "coming-soon",
-    icon: IconAI,
-  },
-];
+type Card = {
+  id: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  status: "active" | "coming-soon";
+  href?: string;
+  cta?: string;
+  emphasized?: boolean;
+  icon: React.ReactNode;
+};
 
-function StatusBadge({ status }: { status: Status }) {
+function StatusBadge({
+  status,
+  activeLabel,
+  soonLabel,
+}: {
+  status: "active" | "coming-soon";
+  activeLabel: string;
+  soonLabel: string;
+}) {
   if (status === "active") {
     return (
       <span className="inline-flex items-center gap-2 rounded-full border border-[rgba(18,216,255,0.35)] bg-[rgba(18,216,255,0.08)] px-2.5 py-1 text-[10px] font-mono uppercase tracking-[0.22em] text-[color:var(--brand-2)]">
         <span className="h-1.5 w-1.5 rounded-full bg-[color:var(--brand-2)] pulse-soft" />
-        Active
+        {activeLabel}
       </span>
     );
   }
   return (
     <span className="inline-flex items-center gap-2 rounded-full border border-[color:var(--border)] bg-[rgba(11,17,32,0.6)] px-2.5 py-1 text-[10px] font-mono uppercase tracking-[0.22em] text-[color:var(--muted)]">
       <span className="h-1.5 w-1.5 rounded-full bg-[color:var(--muted-2)]" />
-      Coming Soon
+      {soonLabel}
     </span>
   );
 }
 
-function SolutionCard({ s, delay }: { s: Solution; delay: 0 | 1 | 2 | 3 }) {
+function SolutionCard({
+  s,
+  delay,
+  activeLabel,
+  soonLabel,
+  inDevLabel,
+}: {
+  s: Card;
+  delay: 0 | 1 | 2 | 3;
+  activeLabel: string;
+  soonLabel: string;
+  inDevLabel: string;
+}) {
   const content = (
     <>
       <div className="flex items-start justify-between gap-4">
@@ -151,7 +141,11 @@ function SolutionCard({ s, delay }: { s: Solution; delay: 0 | 1 | 2 | 3 }) {
         >
           {s.icon}
         </div>
-        <StatusBadge status={s.status} />
+        <StatusBadge
+          status={s.status}
+          activeLabel={activeLabel}
+          soonLabel={soonLabel}
+        />
       </div>
 
       <div className="mt-8">
@@ -180,7 +174,7 @@ function SolutionCard({ s, delay }: { s: Solution; delay: 0 | 1 | 2 | 3 }) {
           </span>
         ) : (
           <span className="text-sm text-[color:var(--muted-2)]">
-            Currently in development
+            {inDevLabel}
           </span>
         )}
       </div>
@@ -216,6 +210,38 @@ function SolutionCard({ s, delay }: { s: Solution; delay: 0 | 1 | 2 | 3 }) {
 }
 
 export function SolutionsSection() {
+  const { t } = useLang();
+
+  const cards: Card[] = [
+    {
+      id: "smf-iot",
+      title: t.solutions.smf.title,
+      subtitle: t.solutions.smf.subtitle,
+      description: t.solutions.smf.desc,
+      status: "active",
+      href: "https://smfiot.bkknex.com",
+      cta: t.solutions.smf.cta,
+      emphasized: true,
+      icon: IconIoT,
+    },
+    {
+      id: "space",
+      title: t.solutions.space.title,
+      subtitle: t.solutions.space.subtitle,
+      description: t.solutions.space.desc,
+      status: "coming-soon",
+      icon: IconSpace,
+    },
+    {
+      id: "ai",
+      title: t.solutions.ai.title,
+      subtitle: t.solutions.ai.subtitle,
+      description: t.solutions.ai.desc,
+      status: "coming-soon",
+      icon: IconAI,
+    },
+  ];
+
   return (
     <section
       id="solutions"
@@ -230,24 +256,29 @@ export function SolutionsSection() {
         <Reveal>
           <div className="max-w-3xl">
             <span className="font-mono text-xs uppercase tracking-[0.28em] text-[color:var(--brand-2)]">
-              / Our Solutions
+              {t.solutions.eyebrow}
             </span>
             <h2 className="font-display mt-4 text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight text-white">
-              Technology for
+              {t.solutions.title1}
               <br />
-              <span className="text-gradient">What Comes Next.</span>
+              <span className="text-gradient">{t.solutions.title2}</span>
             </h2>
             <p className="mt-6 text-lg text-[color:var(--muted)]">
-              From intelligent agriculture to space and artificial intelligence,
-              BKKNEX develops technology platforms designed for the next
-              generation.
+              {t.solutions.description}
             </p>
           </div>
         </Reveal>
 
         <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {SOLUTIONS.map((s, i) => (
-            <SolutionCard key={s.id} s={s} delay={(i + 1) as 1 | 2 | 3} />
+          {cards.map((c, i) => (
+            <SolutionCard
+              key={c.id}
+              s={c}
+              delay={(i + 1) as 1 | 2 | 3}
+              activeLabel={t.solutions.active}
+              soonLabel={t.solutions.comingSoon}
+              inDevLabel={t.solutions.inDevelopment}
+            />
           ))}
         </div>
       </div>
