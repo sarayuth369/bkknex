@@ -76,12 +76,9 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-16 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-t border-[color:var(--border)] pt-8">
+        <div className="mt-16 flex items-center border-t border-[color:var(--border)] pt-8">
           <div className="text-xs font-mono text-[color:var(--muted-2)]">
             {t.footer.copyright}
-          </div>
-          <div className="text-xs font-mono text-[color:var(--muted-2)]">
-            13.7563° N, 100.5018° E
           </div>
         </div>
       </div>
